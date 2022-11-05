@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Pool {
+  id        String   @id @default(cuid())
+  title     String
+  code      String   @unique
+  createdAt DateTime @default(now())
+
+// Campos das realções
+  owenerId String?
+
+  // Relações:
+  Participants Participant[]
+  owener       User?         @relation(fields: [owenerId], references: [id])
+}
+
+// Tabela pivot, quando tem um relacionamento N para N, ou seja varios para varios, tem que ter uma tabela no meio, que no caso é a participant, a onde o mesmo bolão pode ter varios user, como o user pode participar de varioes bolões a gente tem uma tabela pivot que gerencia esse relacionamento mostrando quais os boloes esse usuario esta inserido e quais usuarios estao insridos no bolão.
+model Participant {
+  id String @id @default(cuid())
+
+// Campos das realções
+  userId String
+  poolId String
+
+  // Relaçaões:
+  Guesses Guess[]
+  user    User    @relation(fields: [userId], references: [id])
+  pool    Pool    @relation(fields: [poolId], references: [id])
+
+  @@unique([userId, poolId])
+}
+
+model User {
+  id String @id @default(cuid())
+
+  name      String
+  email     String  @unique
+  avatarUrl String?
+
+  createdAt DateTime @default(now())
+
+  // Relações:
+  participantingAt Participant[]
+  ownPools         Pool[]
+}
+
+model Game {
+  id   String   @id @default(cuid())
+  date DateTime
+
+  firstTeamCountryCode String
+  secondTeamCountryCode String
+
+  // Relações:
+  guesses Guess[]
+}
+
+model Guess {
+  id String @id @default(cuid())
+
+  firstTeamPoints  Int
+  secondTeamPoints Int
+  createdAt        DateTime @default(now())
+
+// Campos das realções
+  gameId        String
+  participantId String
+
+  // Relações:
+  participant Participant @relation(fields: [participantId], references: [id])
+  game        Game        @relation(fields: [gameId], references: [id])
+}
