@@ -1,10 +1,13 @@
 import { VStack, Icon } from 'native-base'
 import { Octicons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 import { Button } from '../src/components/Button'
 import { Header } from '../src/components/Header'
 
 export function Pools() {
+  const {navigate} = useNavigation()
+
   return (
     <VStack flex={1} bgColor="gray.900">
       <Header title="Meus bolões" />
@@ -16,9 +19,14 @@ export function Pools() {
         pb={4}
         mb={4}
       >
-        <Button 
-          title="BUSCAR BOLÃO POR CÓDIGO" 
-          leftIcon={<Icon as={Octicons} name="search" size="md" color="black" />}
+        <Button
+          title="BUSCAR BOLÃO POR CÓDIGO"
+          leftIcon={
+            <Icon as={Octicons} name="search" size="md" color="black" />
+          }
+          onPress={
+            () => navigate('find')
+          }
         />
       </VStack>
     </VStack>

@@ -1,15 +1,14 @@
 // Mini framework é tipo o express so que mais leve, que facilita a criação de rotas na aplicação, autenticação e etc
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
-// Schema de validação do zod e integração com typescript
-import { z } from 'zod'
-import { PrismaClient } from '@prisma/client'
-import ShortUniqueId from 'short-unique-id'
+import jwt from '@fastify/jwt'
 
-const prisma = new PrismaClient({
-  // O prisma vai dar um log de todas as querys que foram feitas no banco de dados
-  log: ['query']
-})
+// rotas
+import { poolRoutes } from './routes/pool'
+import { gameRoutes } from './routes/game'
+import { authRoutes } from './routes/auth'
+import { userRoutes } from './routes/user'
+import { guessRoutes } from './routes/guess'
 
 async function bootstrap() {
   const fastify = Fastify({
@@ -22,57 +21,23 @@ async function bootstrap() {
     origin: true
   })
 
-  //Criando Minha primeira rota
-  fastify.get('/pools/count', async () => {
-    //Eu consigo realizar querys no banco de dados com o prisma, nesse caso eu estou indo na tabela pool e pesquisando todos os codigos que começa com D
-    // const pools = await prisma.pool.findMany({
-    //   where:{
-    //     code:{
-    //       startsWith: 'D'
-    //     }
-    //   }
-    // })
-    const count = await prisma.pool.count()
-    return { count }
+  // JWT É um hash gerado no backend para identificar o usuário logado
+  // Em produção, o ideal é colocar uma variavel ambiente .env ou seja pode ser qualquer string mas que esteja em .env
+  await fastify.register(jwt, {
+    // Chave secreta para gerar e validar o token
+    secret: 'nlwcopa'
   })
 
-  fastify.get('/users/count', async () => {
-    const count = await prisma.user.count()
-    return { count }
-  })
-
-  fastify.get('/guesses/count', async () => {
-    const count = await prisma.guess.count()
-    return { count }
-  })
-
-  fastify.post('/pools', async (request, reply) => {
-    // aqui estou falando que o corpo(request.body) da requisição tem que ser um objeto com as propriedades dele code e title, o tipo de cada uma e que nao pode ser nulo
-    const createPoolBody = z.object({
-      title: z.string()
-    })
-    // const { title } = request.body
-    const { title } = createPoolBody.parse(request.body)
-
-    const generate = new ShortUniqueId({ length: 6 })
-    const code = String(generate()).toUpperCase()
-
-    await prisma.pool.create({
-      data: {
-        title,
-        code: code
-      }
-    })
-
-    return reply.status(201).send({
-      code
-    })
-    // return { title }
-  })
+  // As rotas são registradas aqui e viram plugins/middleware do fastify
+  await fastify.register(poolRoutes)
+  await fastify.register(authRoutes)
+  await fastify.register(gameRoutes)
+  await fastify.register(guessRoutes)
+  await fastify.register(userRoutes)
 
   await fastify.listen({
-    port: 3333
-    // host: '0.0.0.0'
+    port: 3333,
+    host: '0.0.0.0'
   })
 }
 

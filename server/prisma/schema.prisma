@@ -20,7 +20,7 @@ model Pool {
   code      String   @unique
   createdAt DateTime @default(now())
 
-// Campos das realções
+  // Campos das realções
   owenerId String?
 
   // Relações:
@@ -32,7 +32,7 @@ model Pool {
 model Participant {
   id String @id @default(cuid())
 
-// Campos das realções
+  // Campos das realções
   userId String
   poolId String
 
@@ -49,6 +49,7 @@ model User {
 
   name      String
   email     String  @unique
+  googleId  String? @unique
   avatarUrl String?
 
   createdAt DateTime @default(now())
@@ -62,7 +63,7 @@ model Game {
   id   String   @id @default(cuid())
   date DateTime
 
-  firstTeamCountryCode String
+  firstTeamCountryCode  String
   secondTeamCountryCode String
 
   // Relações:
@@ -76,11 +77,13 @@ model Guess {
   secondTeamPoints Int
   createdAt        DateTime @default(now())
 
-// Campos das realções
+  // Campos das realções
   gameId        String
   participantId String
 
   // Relações:
   participant Participant @relation(fields: [participantId], references: [id])
   game        Game        @relation(fields: [gameId], references: [id])
+
+  @@unique([participantId, gameId])
 }

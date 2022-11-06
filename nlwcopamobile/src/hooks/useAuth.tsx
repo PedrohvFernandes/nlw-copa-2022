@@ -1,3 +1,4 @@
+//Os contextos no React servem para compartilhar informações para todos os componentes que estão envolvidos pelo Provider desse contexto. Uma forma muito utilizada por é criar um hook para facilitar o compartilhamento desses dados entre os componentes.
 import { useContext } from "react";
 
 import {AuthContext, AuthContextDataProps} from '../contexts/AuthContext'

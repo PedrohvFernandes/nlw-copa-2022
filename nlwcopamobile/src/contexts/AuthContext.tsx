@@ -3,6 +3,7 @@ import React, { createContext, useEffect } from 'react'
 import * as Google from 'expo-auth-session/providers/google'
 import * as AuthSession from 'expo-auth-session'
 import * as WebBrowser from 'expo-web-browser'
+import { api } from '../services/api'
 
 // Garante o redirecionamento do navegador da autenticação da google para o app
 WebBrowser.maybeCompleteAuthSession()
@@ -57,11 +58,30 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   }
 
   async function signInWithGoogle(access_token: string) {
-    console.log("TOKEN DE AUTENTICAÇÃO =======>",access_token)
+    console.log('TOKEN DE AUTENTICAÇÃO =======>', access_token)
+    try{
+      setIsUserLoading(true)
+
+     const tokenResponse =  await api.post('/users', {
+        access_token
+      })
+      console.log(tokenResponse.data)
+
+      api.defaults.headers.common['Authorization'] = `Bearer ${tokenResponse.data.token}`
+
+      const userInfoResponse = await api.get('/me')
+      setUser(userInfoResponse.data.user)
+
+    }catch(error){
+      console.log(error)
+      throw error
+    }finally{
+      setIsUserLoading(false)
+    }
   }
 
   useEffect(() => {
-    if(response?.type === 'success' && response.authentication?.accessToken) {
+    if (response?.type === 'success' && response.authentication?.accessToken) {
       signInWithGoogle(response.authentication.accessToken)
     }
   }, [response])
@@ -83,13 +103,13 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
 
     // Dessa maneira eu eu passo o usuario logado so que dinamicamente, com um hook de estado, com os dados que vem da api
     <AuthContext.Provider
-    value={{
-      signIn,
-      isUserLoading,
-      user,
-    }}
-  >
-    {children}
-  </AuthContext.Provider>
+      value={{
+        signIn,
+        isUserLoading,
+        user
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
