@@ -1,3 +1,4 @@
+// Em alguns momentos precisamos recarregar informações como listagens sempre que uma tela da nossa aplicação estiver em foco, para conseguir realizar esse comportamento podemos utilizar um hook que vem de dentro do React chamador useCallback.
 import { useCallback, useState } from 'react'
 import { VStack, Icon, useToast, FlatList } from 'native-base'
 import { Octicons } from '@expo/vector-icons'
@@ -72,6 +73,7 @@ export function Pools() {
           renderItem={({ item }) =>( 
             <PoolCard 
               data={item} 
+              // Com o React Navigation conseguimos navegar entre telas na nossa aplicação e também repassar e recuperar parâmetros por essas rotas. Qual hook do React Navigation podemos utilizar para recuperar os parâmetros repassados entre rotas? useNavigation();
               onPress={() => navigate('details', { id: item.id })}
             />
           )}

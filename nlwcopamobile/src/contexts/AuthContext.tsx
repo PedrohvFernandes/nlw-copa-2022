@@ -66,6 +66,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
       })
       console.log(tokenResponse.data)
 
+      // Logo após realizar o login recebemos um Bearer token do backend que indica que estamos autenticados para realizar as requisições. Como podemos informar para nossa aplicação o token para que ele possa estar presente em todas as requisições? 
       api.defaults.headers.common['Authorization'] = `Bearer ${tokenResponse.data.token}`
 
       const userInfoResponse = await api.get('/me')
