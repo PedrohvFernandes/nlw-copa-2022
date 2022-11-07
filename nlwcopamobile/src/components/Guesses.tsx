@@ -79,7 +79,7 @@ export function Guesses({ poolId, code, onShare }: Props) {
   }
   return (
     <FlatList
-      data={[]}
+      data={games}
       keyExtractor={item => item.id}
       renderItem={({ item }) => (
         <Game
