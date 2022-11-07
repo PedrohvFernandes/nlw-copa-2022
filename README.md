@@ -87,11 +87,25 @@
 
 ### Server:
 
-#### DATABASE_URL="file:./dev.db" variavel de embiente(.env na raiz da aplicação web) pro prisma conseguir acessar o banco de dados. Nesse projeto foi utilizado o 
-sqlite localmente, por conta disso não tem restrição de compartilhar, mas caso usar um serviço pro banco de dados / um banco de dados real NÃO SUBIR O 
+#### DATABASE_URL="file:./dev.db" variavel de embiente(.env na raiz da aplicação web) pro prisma conseguir acessar o banco de dados. Nesse projeto foi utilizado o sqlite localmente, por conta disso não tem restrição de compartilhar, mas caso usar um serviço pro banco de dados / um banco de dados real NÃO SUBIR O 
 .ENV PARA O GITHUB
 ```
   cd web>new file>.env>DATABASE_URL="file:./dev.db"
+```
+
+#### no src/server.ts comente //0.0.0.0 se for usar o web e caso for usar o android pra ver a interface mobile descomente 0.0.0.0 
+```
+  // Para a web
+  await fastify.listen({
+    port: 3333,
+    // host: '0.0.0.0'
+  })
+  
+  // Para mobile
+  await fastify.listen({
+    port: 3333,
+    host: '0.0.0.0'
+  })
 ```
 
 ### Web, mobile e server:
