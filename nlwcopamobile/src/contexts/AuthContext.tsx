@@ -33,8 +33,7 @@ export function AuthContextProvider({ children }: AuthProviderProps) {
   const [isUserLoading, setIsUserLoading] = React.useState(false)
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    clientId:
-      '152606123311-orena9pacmjpqcbqhasnou9h88563t1s.apps.googleusercontent.com',
+    clientId:process.env.CLIENT_ID,
     redirectUri: AuthSession.makeRedirectUri({ useProxy: true }),
     // Esse escope é configurado no cosole do google, para que o google saiba o que ele vai ter acesso
     scopes: ['profile', 'email']

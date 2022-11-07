@@ -87,12 +87,6 @@ export async function guessRoutes(fastify: FastifyInstance) {
           secondTeamPoints
         }
       })
-      return {
-        poolId,
-        gameId,
-        firstTeamPoints,
-        secondTeamPoints
-      }
       return reply.status(201).send()
     }
   )

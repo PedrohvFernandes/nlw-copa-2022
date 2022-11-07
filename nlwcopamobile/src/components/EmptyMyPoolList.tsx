@@ -2,9 +2,10 @@ import { Row, Text, Pressable } from 'native-base';
 
 interface Props {
   code: string;
+  onShare: () => void;
 }
 
-export function EmptyMyPoolList({ code }: Props) {
+export function EmptyMyPoolList({ code, onShare }: Props) {
   return (
     <Row flexWrap="wrap" justifyContent="center" p={4}>
       <Text color="gray.200" fontSize="sm">
@@ -12,7 +13,7 @@ export function EmptyMyPoolList({ code }: Props) {
       </Text>
 
       <Pressable onPress={() => {}}>
-          <Text textDecorationLine="underline" color="yellow.500" textDecoration="underline">
+          <Text textDecorationLine="underline" color="yellow.500" textDecoration="underline" onPress={onShare}>
           compartilhar o código
           </Text>
       </Pressable>
