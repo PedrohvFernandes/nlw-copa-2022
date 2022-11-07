@@ -94,6 +94,21 @@ sqlite localmente, por conta disso não tem restrição de compartilhar, mas cas
   cd web>new file>.env>DATABASE_URL="file:./dev.db"
 ```
 
+#### no src/server.ts comente //0.0.0.0 se for usar o web e caso for usar o android pra ver a interface mobile descomente 0.0.0.0 
+```
+  // Para a web
+  await fastify.listen({
+    port: 3333,
+    // host: '0.0.0.0'
+  })
+  
+  // Para mobile
+  await fastify.listen({
+    port: 3333,
+    host: '0.0.0.0'
+  })
+```
+
 ### Web, mobile e server:
 
 #### Inicie o comando abaixo no terminal para ver a interface localmente(Localhost:${PORTA}) server e web
