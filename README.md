@@ -15,10 +15,16 @@
 ## 🌐 Demonstração do app na web e mobile:
 
 ### Web:
-<img src='https://github.com/PedrohvFernandes/NLW-eSports-Ignite/blob/main/screenshot/screens/web/Screen1.png'/>
+<img src='https://github.com/PedrohvFernandes/nlw-copa-2022/blob/main/screenshot/Web/Web.png?raw=true'/>
 
 ### Mobile:
-<img width='300' src='https://github.com/PedrohvFernandes/NLW-eSports-Ignite/blob/main/screenshot/screens/Mobile/Screen1.jpeg'/>
+<div>
+  <img width='300' src='https://github.com/PedrohvFernandes/nlw-copa-2022/blob/main/screenshot/Mobile/1.jpeg?raw=true'/>
+  <img width='300' src='https://github.com/PedrohvFernandes/nlw-copa-2022/blob/main/screenshot/Mobile/2.jpeg?raw=true'/>
+  <img width='300' src='https://github.com/PedrohvFernandes/nlw-copa-2022/blob/main/screenshot/Mobile/3.jpeg?raw=true'/>
+  <img width='300' src='https://github.com/PedrohvFernandes/nlw-copa-2022/blob/main/screenshot/Mobile/4.jpeg?raw=true'/>
+  <img width='300' src='https://github.com/PedrohvFernandes/nlw-copa-2022/blob/main/screenshot/Mobile/5.jpeg?raw=true'/>
+</div>
 
 ## ✨Tecnologias:
 
