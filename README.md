@@ -1,7 +1,7 @@
 # NLW-Copa 2022 - Rocketseat <img  align='center' width='100px' src='https://yt3.ggpht.com/ytc/AKedOLQkXnYChXAHOeBQLzwhk1_BHYgUXs6ITQOakoeNoQ=s176-c-k-c0x00ffffff-no-rj'/>
 
 <p align='center'>
-  <img src=''/>
+  <img src='https://github.com/PedrohvFernandes/nlw-copa-2022/blob/main/screenshot/Wallpaper%20-%201920x1080.png?raw=true'/>
 </p>
 
 ## Sobre:
